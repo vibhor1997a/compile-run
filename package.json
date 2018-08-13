@@ -1,0 +1,31 @@
+{
+  "name": "compile-run2",
+  "version": "1.0.0",
+  "description": "Library empowering the L-IDE at the backend",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "tsc --",
+    "tsc": "tsc"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/l-ide/compile-run2.git"
+  },
+  "keywords": [
+    "compile",
+    "run",
+    "compile-run",
+    "execute"
+  ],
+  "author": "vibhor agrawal <vibhor349a@rediffmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/l-ide/compile-run2/issues"
+  },
+  "homepage": "https://github.com/l-ide/compile-run2#readme",
+  "devDependencies": {
+    "@types/node": "^10.5.8"
+  }
+}

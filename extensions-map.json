@@ -1,0 +1,8 @@
+{
+    "node": "js",
+    "python": "py",
+    "java": "java",
+    "cpp": "cpp",
+    "c": "c",
+    "javaClass": "class"
+}
