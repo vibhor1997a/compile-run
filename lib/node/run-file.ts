@@ -1,6 +1,5 @@
-import { writeSourceFile } from "../source-writer";
 import { errorResultCallback, Result, Options } from "../types";
-import { spawn, ChildProcess } from 'child_process';
+import { spawn } from 'child_process';
 import path from 'path';
 import { streamDataToString } from "../stream-to-string";
 import { writeToStdin } from "../sdtin-write";
@@ -10,8 +9,8 @@ import { writeToStdin } from "../sdtin-write";
  * @param path A path like string
  * @param callback 
  */
-export async function runPythonFile(filePath: string, options?: Options, callback?: errorResultCallback): Promise<Result> {
-    let execPromise = runPythonFileAndReturnPromise(filePath, options);
+export async function runNodeFile(filePath: string, options?: Options, callback?: errorResultCallback): Promise<Result> {
+    let execPromise = runNodeFileAndReturnPromise(filePath, options);
     if (typeof callback === 'function') {
         execPromise.then(result => {
             callback(undefined, result);
@@ -27,13 +26,13 @@ export async function runPythonFile(filePath: string, options?: Options, callbac
  * @param filePath A path like string
  * @param options 
  */
-function runPythonFileAndReturnPromise(filePath: string, options?: Options): Promise<Result> {
+function runNodeFileAndReturnPromise(filePath: string, options?: Options): Promise<Result> {
     return new Promise<Result>((res, rej) => {
         const timeout = options && options.timeout || 2000;
         const stdin = options && options.stdin || '';
         //Make the path absolute
         filePath = path.resolve(filePath);
-        const p = spawn('python', [filePath]);
+        const p = spawn('node', [filePath]);
 
         //write to stdin
         writeToStdin(p, stdin);

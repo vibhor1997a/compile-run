@@ -1,3 +1,4 @@
 export interface Options {
-    timeout: number;
+    timeout?: number;
+    stdin?: string;
 }

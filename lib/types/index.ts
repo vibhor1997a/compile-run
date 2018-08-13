@@ -8,4 +8,4 @@ export { LanguageExtMap, Result, Options };
  * @param err Error if any
  * @param res The result object containing stderr and stdout
  */
-export type errorResultCallback = (err: Error | undefined, res: Result) => void;
+export type errorResultCallback = (err: Error | undefined, res?: Result) => void;

@@ -5,7 +5,7 @@ import { LanguageNames, LanguageExtMap } from '../types';
 import { getFileName } from './file-name';
 
 /**
- * Writes the source code into the file system
+ * Writes the source code into the file system and returns a promise that resolves to path of the source file
  * @param lang Language of the source code
  * @param source string containing source code to be written
  */
