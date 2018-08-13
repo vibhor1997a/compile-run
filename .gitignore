@@ -62,3 +62,6 @@ typings/
 
 #distributable directory, It can be build using npm run build. No need to commit
 dist
+
+#vscode
+.vscode
