@@ -6,6 +6,8 @@ import { ChildProcess } from "child_process";
  * @param stdin stdin string
  */
 export function writeToStdin(proc: ChildProcess, stdin: string) {
-    proc.stdin.write(stdin + '\n');
-    proc.stdin.end();
+    if (stdin) {
+        proc.stdin.write(stdin + '\r\n');
+        proc.stdin.end();
+    }
 }

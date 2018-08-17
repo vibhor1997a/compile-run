@@ -1,3 +1,6 @@
 lib
 index.ts
+
 *.log
+
+test.js

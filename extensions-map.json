@@ -4,5 +4,7 @@
     "java": "java",
     "cpp": "cpp",
     "c": "c",
-    "javaClass": "class"
+    "javaClass": "class",
+    "exe": "exe",
+    "out": "out"
 }

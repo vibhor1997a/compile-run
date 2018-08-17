@@ -1,25 +1,35 @@
-import { writeSourceFile } from "../source-writer";
 import { errorResultCallback, Result, Options } from "../types";
-import { spawn, ChildProcess } from 'child_process';
+import { spawn } from 'child_process';
 import path from 'path';
 import { streamDataToString } from "../stream-to-string";
 import { writeToStdin } from "../sdtin-write";
+import { multipleArgsCallbackifier } from "../helper";
+import { execute } from "../execute-command";
 
 /**
  * executes the python source code in the file at the path provided and give stdout and stderr as result
  * @param path A path like string
- * @param callback 
+ * @param options Optional Options obj
+ * @param callback Optional callback
  */
-export async function runPythonFile(filePath: string, options?: Options, callback?: errorResultCallback): Promise<Result> {
-    let execPromise = runPythonFileAndReturnPromise(filePath, options);
-    if (typeof callback === 'function') {
-        execPromise.then(result => {
-            callback(undefined, result);
-        }, (err: Error) => {
-            callback(err);
-        });
-    }
-    return await execPromise;
+export function runPythonFile(filePath: string, options: Options, callback: errorResultCallback): Promise<Result>;
+
+/**
+ * executes the python source code in the file at the path provided and give stdout and stderr as result
+ * @param path A path like string
+ * @param options Optional Options obj
+ */
+export function runPythonFile(filePath: string, options?: Options): Promise<Result>;
+
+/**
+ * executes the python source code in the file at the path provided and give stdout and stderr as result
+ * @param path A path like string
+ * @param callback Optional callback
+ */
+export function runPythonFile(filePath: string, callback: errorResultCallback): Promise<Result>;
+
+export async function runPythonFile(filePath: string, ...args: any[]): Promise<Result> {
+    return multipleArgsCallbackifier<Result>(filePath, runPythonFileAndReturnPromise, ...args);
 }
 
 /**
@@ -27,39 +37,8 @@ export async function runPythonFile(filePath: string, options?: Options, callbac
  * @param filePath A path like string
  * @param options 
  */
-function runPythonFileAndReturnPromise(filePath: string, options?: Options): Promise<Result> {
-    return new Promise<Result>((res, rej) => {
-        const timeout = options && options.timeout || 2000;
-        const stdin = options && options.stdin || '';
+async function runPythonFileAndReturnPromise(filePath: string, options?: Options): Promise<Result> {
         //Make the path absolute
         filePath = path.resolve(filePath);
-        const p = spawn('python', [filePath]);
-
-        //write to stdin
-        writeToStdin(p, stdin);
-        
-        let killTimerId = setTimeout(() => {
-            p.kill();
-        }, timeout);
-        let resultPromise: Promise<string>[] = [];
-        resultPromise.push((streamDataToString(p.stderr)));
-        resultPromise.push(streamDataToString(p.stdout));
-        let pr = Promise.all(resultPromise);
-        pr
-            .then((result: string[]) => {
-                clearTimeout(killTimerId);
-                return result;
-            })
-            .then((result: string[]) => (
-                {
-                    stderr: result[0],
-                    stdout: result[1]
-                }
-            ))
-            .then((result: Result) => res(result))
-            .catch(err => {
-                clearTimeout(killTimerId);
-                rej(err);
-            });
-    });
+        return execute('python',[filePath],options);
 }
