@@ -19,7 +19,8 @@ export async function compileC(filePath: string, options?: Options): Promise<str
     let executablePath = path.join(cPath, executableName);
     let res = await execute('gcc', [filePath, '-o', executablePath], { timeout: compileTimeout });
     if (res.exitCode !== 0) {
-        throw res.stderr;
+        res.errorType ='compile-time';
+        throw res;
     }
     return executablePath;
 }

@@ -1,7 +1,7 @@
 {
-  "name": "compile-run2",
-  "version": "1.0.0",
-  "description": "Library empowering the L-IDE at the backend",
+  "name": "compile-run",
+  "version": "2.0.0",
+  "description": "You can execute programs in diff languages using this package",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

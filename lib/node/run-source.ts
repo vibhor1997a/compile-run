@@ -31,5 +31,5 @@ export async function runNodeSourceCode(soureCode: string, ...args: any[]): Prom
 
 async function runNodeSourceCodeAndReturnPromise(soureCode: string, options?: Options): Promise<Result> {
     let filePath = await writeSourceFile('node', soureCode);
-    return await runNodeFile(filePath, options);
+    return runNodeFile(filePath, options);
 }

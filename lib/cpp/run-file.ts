@@ -30,6 +30,11 @@ export async function runCppFile(filePath: string, ...args: any[]): Promise<Resu
 }
 
 export async function runCppFileAndReturnPromise(filePath: string, options?: Options): Promise<Result> {
-    let executablePath = await compileCpp(filePath, options);
-    return runExecutable(executablePath, options);
+    try {
+        let executablePath = await compileCpp(filePath, options);
+        return runExecutable(executablePath, options);
+    }
+    catch (err) {
+        return err;
+    }
 }

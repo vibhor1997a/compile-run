@@ -31,5 +31,7 @@ export async function runPythonSourceCode(soureCode: string, ...args: any[]): Pr
 
 async function runPythonSourceCodeAndReturnPromise(soureCode: string, options?: Options): Promise<Result> {
     let filePath = await writeSourceFile('python', soureCode);
-    return await runPythonFile(filePath, options);
+    let res = await runPythonFile(filePath, options);
+    res.errorType = 'run-time';
+    return res;
 }

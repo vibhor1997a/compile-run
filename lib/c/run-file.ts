@@ -30,6 +30,11 @@ export async function runCFile(filePath: string, ...args: any[]): Promise<Result
 }
 
 export async function runCFileAndReturnPromise(filePath: string, options?: Options): Promise<Result> {
-    let executablePath = await compileC(filePath, options);
-    return runExecutable(executablePath, options);
+    try {
+        let executablePath = await compileC(filePath, options);
+        return runExecutable(executablePath, options);
+    }
+    catch (err) {
+        return err;
+    }
 }

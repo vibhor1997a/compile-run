@@ -37,5 +37,9 @@ export async function runNodeFile(filePath: string, ...args: any[]): Promise<Res
 async function runNodeFileAndReturnPromise(filePath: string, options?: Options): Promise<Result> {
     //Make the path absolute
     filePath = path.resolve(filePath);
-    return execute('node', [filePath], options);
+    let res = await execute('node', [filePath], options);
+    if (res.exitCode != 0) {
+        res.errorType = 'run-time';
+    }
+    return res;
 }

@@ -38,7 +38,11 @@ export async function runPythonFile(filePath: string, ...args: any[]): Promise<R
  * @param options 
  */
 async function runPythonFileAndReturnPromise(filePath: string, options?: Options): Promise<Result> {
-        //Make the path absolute
-        filePath = path.resolve(filePath);
-        return execute('python',[filePath],options);
+    //Make the path absolute
+    filePath = path.resolve(filePath);
+    let res = await execute('python', [filePath], options);
+    if (res.exitCode != 0) {
+        res.errorType = 'run-time';
+    }
+    return res;
 }

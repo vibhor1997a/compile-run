@@ -17,9 +17,10 @@ export async function compileCpp(filePath: string, options?: Options): Promise<s
     checkExistsAndMakeDir(cppPath);
     let executableName = getFileName(executableExt);
     let executablePath = path.join(cppPath, executableName);
-    let res = await execute('gcc', [filePath, '-o', executablePath,'-lstdc++'], { timeout: compileTimeout });
+    let res = await execute('gcc', [filePath, '-o', executablePath, '-lstdc++'], { timeout: compileTimeout });
     if (res.exitCode !== 0) {
-        throw res.stderr;
+        res.errorType = 'compile-time';
+        throw res;
     }
     return executablePath;
 }
