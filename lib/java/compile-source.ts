@@ -18,7 +18,7 @@ export async function compileJavaSource(source: string, options?: Options): Prom
     catch (err) {
         return err;
     }
-    let fileName = `${publicClass}.class`;
+    let fileName = `${publicClass}.java`;
     let filePath = path.join(dirPath, fileName);
     await writeSource(filePath, source);
     //compile

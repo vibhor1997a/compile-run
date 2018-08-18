@@ -34,8 +34,8 @@ export async function runJavaFileAndReturnPromise(filePath: string, options?: Op
     try {
         let classFilePath = await compileJavaFile(filePath, options);
         let classPath = path.dirname(classFilePath);
-        let [classFile] = path.basename(classFilePath).split('.');
-        let res = await execute('java', ['-classpath', classPath, classFile], options);
+        let [className] = path.basename(classFilePath).split('.');
+        let res = await execute('java', ['-classpath', classPath, className], options);
         if (res.stderr) {
             res.errorType = 'run-time';
         }

@@ -2,6 +2,7 @@ import { Result, Options, errorResultCallback } from "../types";
 import { multipleArgsCallbackifier } from "../helper";
 import { compileJavaSource } from "./compile-source";
 import { execute } from "../execute-command";
+import path from 'path';
 
 /**
  * Runs a Java source string 
@@ -31,11 +32,13 @@ export async function runJavaSource(source: string, ...args: any[]): Promise<Res
 
 export async function runJavaSourceAndReturnPromise(filePath: string, options?: Options): Promise<Result> {
     try {
-        let classPath = await compileJavaSource(filePath, options);
-        let res = await execute('java', [classPath], options);
+        let classFilePath = await compileJavaSource(filePath, options);
+        let classPath = path.dirname(classFilePath);
+        let [className] = path.basename(classFilePath).split('.');
+        let res = await execute('java', ['-classpath', classPath, className], options);
         if (res.stderr) {
             res.errorType = 'run-time';
-        } 
+        }
         return res;
     }
     catch (err) {
