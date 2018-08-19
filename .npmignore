@@ -1,6 +1,6 @@
 lib
 index.ts
-
+.vscode
+tsconfig.json
 *.log
-
 test.js
