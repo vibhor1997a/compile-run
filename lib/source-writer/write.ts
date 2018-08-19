@@ -29,7 +29,8 @@ export async function writeSourceFile(lang: LanguageNames, source: string): Prom
 
 export function getExtension(lang: string): Promise<string> {
     return new Promise((resolve, reject) => {
-        fs.readFile('./extensions-map.json', 'utf-8', (err, data) => {
+        let extensionsMapPath = path.join(__dirname,'../../../','extensions-map.json');
+        fs.readFile(extensionsMapPath, 'utf-8', (err, data) => {
             if (err) {
                 reject(err);
             }

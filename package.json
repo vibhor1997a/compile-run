@@ -1,6 +1,6 @@
 {
   "name": "compile-run",
-  "version": "2.0.3",
+  "version": "2.1.0",
   "description": "You can execute programs in diff languages using this package",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -11,7 +11,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/l-ide/compile-run2.git"
+    "url": "git+https://github.com/l-ide/compile-run.git"
   },
   "keywords": [
     "compile",
@@ -30,13 +30,14 @@
   "author": "vibhor agrawal <vibhor349a@rediffmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/l-ide/compile-run2/issues"
+    "url": "https://github.com/l-ide/compile-run/issues"
   },
-  "homepage": "https://github.com/l-ide/compile-run2#readme",
+  "homepage": "https://github.com/l-ide/compile-run#readme",
   "devDependencies": {
     "@types/node": "^10.5.8"
   },
   "files": [
-    "dist"
+    "dist",
+    "extensions-map.json"
   ]
 }
