@@ -16,7 +16,7 @@ export async function runPythonSourceCode(soureCode: string, options: Options, c
  * @param soureCode Source code as a string
  * @param options Optional Options object
  */
-export async function runPythonSourceCode(soureCode: string, options: Options): Promise<Result>
+export async function runPythonSourceCode(soureCode: string, options?: Options): Promise<Result>
 
 /**
  * execute the python source code provided as a string
