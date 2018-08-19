@@ -27,6 +27,14 @@ The following should be installed on your machine and be added to the path.
 |Python | python |
 |JavaScript(in node.js environment) | node.js |
 
+## Installation
+
+You can install it by using `npm` like below.
+
+```shell
+npm install compile-run --save
+```
+
 ## Usage
 
 It have 5 modules each for a language containing namely.
