@@ -7,7 +7,7 @@ import { Options } from "../types";
  * @param sourceCode 
  * @param options 
  */
-export async function compileCSource(sourceCode: string, options?: Options): Promise<string> {
+export async function compileCppSource(sourceCode: string, options?: Options): Promise<string> {
     let filePath = await writeSourceFile('cpp', sourceCode);
     let executablePath = await compileCpp(filePath, options);
     return executablePath;

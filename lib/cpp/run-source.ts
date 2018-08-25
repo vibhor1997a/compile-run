@@ -1,6 +1,6 @@
 import { Result, Options, errorResultCallback } from "../types";
 import { multipleArgsCallbackifier } from "../helper";
-import { compileCSource } from "./compile-source";
+import { compileCppSource } from "./compile-source";
 import { runExecutable } from "../executable/execute-executable";
 
 /**
@@ -30,6 +30,11 @@ export async function runCppSource(sourceCode: string, ...args: any[]): Promise<
 }
 
 export async function runCppFileAndReturnPromise(sourceCode: string, options?: Options): Promise<Result> {
-    let executablePath = await compileCSource(sourceCode, options);
-    return runExecutable(executablePath, options);
+    try {
+        let executablePath = await compileCppSource(sourceCode, options);
+        return runExecutable(executablePath, options);
+    }
+    catch (err) {
+        return err;
+    }
 }
