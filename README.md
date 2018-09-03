@@ -125,3 +125,10 @@ API's offer an optional options object which has following keys:-
 1. `stdin` \<string> - Input/stdin you want to pass to the program.
 2. `timeout` \<number> - timeout for program execution in milliseconds. Default is 3000 milliseconds. 
 3. `compileTimeout` - timeout during compilation for c, cpp, java in milliseconds. Default is 3000 milliseconds. Would be ignored if passed for node or python
+
+## Compile-run 1.x.x
+
+The versions < 2.x.x have been deprecated due to inconsistencies so its recommended to use version > 2.0.0.
+
+You can find compile run version 1.x.x at https://github.com/vibhor1997a/compile-run.
+
