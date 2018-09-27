@@ -26,10 +26,10 @@ export function runCSource(sourceCode: string, callback: errorResultCallback): P
 export function runCSource(sourceCode: string, options?: Options): Promise<Result>;
 
 export async function runCSource(sourceCode: string, ...args: any[]): Promise<Result> {
-    return multipleArgsCallbackifier<Result>(sourceCode, runCFileAndReturnPromise, ...args);
+    return multipleArgsCallbackifier<Result>(sourceCode, runCSourceAndReturnPromise, ...args);
 }
 
-export async function runCFileAndReturnPromise(sourceCode: string, options?: Options): Promise<Result> {
+export async function runCSourceAndReturnPromise(sourceCode: string, options?: Options): Promise<Result> {
     try {
         let executablePath = await compileCSource(sourceCode, options);
         return runExecutable(executablePath, options);

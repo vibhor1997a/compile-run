@@ -26,10 +26,10 @@ export function runCppSource(sourceCode: string, callback: errorResultCallback):
 export function runCppSource(sourceCode: string, options?: Options): Promise<Result>;
 
 export async function runCppSource(sourceCode: string, ...args: any[]): Promise<Result> {
-    return multipleArgsCallbackifier<Result>(sourceCode, runCppFileAndReturnPromise, ...args);
+    return multipleArgsCallbackifier<Result>(sourceCode, runCppSourceAndReturnPromise, ...args);
 }
 
-export async function runCppFileAndReturnPromise(sourceCode: string, options?: Options): Promise<Result> {
+export async function runCppSourceAndReturnPromise(sourceCode: string, options?: Options): Promise<Result> {
     try {
         let executablePath = await compileCppSource(sourceCode, options);
         return runExecutable(executablePath, options);
