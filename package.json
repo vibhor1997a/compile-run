@@ -1,6 +1,6 @@
 {
   "name": "compile-run",
-  "version": "2.1.3",
+  "version": "2.1.4",
   "description": "You can execute programs in diff languages using this package",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -34,7 +34,8 @@
   },
   "homepage": "https://github.com/l-ide/compile-run#readme",
   "devDependencies": {
-    "@types/node": "^10.5.8"
+    "@types/node": "^10.5.8",
+    "typescript": "^3.0.1"
   },
   "files": [
     "dist",
