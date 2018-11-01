@@ -7,14 +7,14 @@ import { ChildProcess } from "child_process";
  */
 export function writeToStdin(proc: ChildProcess, stdin: string): void {
     if (stdin) {
-        try {
-            proc.stdin.write(stdin + '\r\n');
-            proc.stdin.end();
-        }
-        catch (err) {
-            // Maybe the stream was already closed for us to write.
-            // To fix issue #2
+        proc.stdin.write(stdin + '\r\n', err => {
+            if (!err) {
+                proc.stdin.end();
+            }
+        });
+        proc.stdin.on("error", err => {
+            // Ignore input if stream is already closed
             return;
-        }
+        });
     }
 }
