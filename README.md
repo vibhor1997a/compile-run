@@ -23,7 +23,7 @@ The following should be installed on your machine and be added to the path.
 |---------|:-------:|
 |C | gcc |
 |C++ | gcc |
-|Java | jdk or jre |
+|Java | jdk |
 |Python | python |
 |JavaScript(in node.js environment) | node.js |
 
