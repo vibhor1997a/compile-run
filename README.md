@@ -27,6 +27,8 @@ The following should be installed on your machine and be added to the path.
 |Python | python |
 |JavaScript(in node.js environment) | node.js |
 
+The library stores the source files for programs in the home directory in a folder named `.compile-run2`. Make sure you have permissions for this folder.
+
 ## Installation
 
 You can install it by using `npm` like below.
@@ -106,6 +108,32 @@ cpp.runFile('E:\\abcd.cpp', (err, result) => {
     }
 });
 ```
+
+### - Providing path
+
+```javascript
+// Providing custom path in java
+java.runFile('E:\\Main.java',{
+    compilationPath: '<path to javac>',
+    executionPath: '<path to java>'
+},(err,result)=>console.log(err ? err : result));
+```
+
+```javascript
+//I have 2 versions of python installed 2.7 and 3.6. I can use 3.6 using python3
+//to run python3 using compile-run I can do something like
+python.runFile('/home/projects/scripts/abc.py',{
+    executionPath: 'python3'
+},(err,result)=>console.log(err ? err : result));
+```
+
+```javascript
+//If I want to provide custom path of gcc in cpp
+cpp.runFile('E:\\abc.cpp',{
+    compilationPath: '<path to gcc>' // something like C:\\Program Files\\gcc\\bin
+},(err,result)=>console.log(err ? err : result));
+```
+
 ## Result
 
 Result is an object with the following keys:-
@@ -125,6 +153,8 @@ API's offer an optional options object which has following keys:-
 1. `stdin` \<string> - Input/stdin you want to pass to the program.
 2. `timeout` \<number> - timeout for program execution in milliseconds. Default is 3000 milliseconds. 
 3. `compileTimeout` - timeout during compilation for c, cpp, java in milliseconds. Default is 3000 milliseconds. Would be ignored if passed for node or python
+4. `compilationPath` - path for the compiler for c, cpp and java i.e for gcc and javac respectively. These paths defined by you if provided else defaults would be used.
+5. `executionPath` - path for the command to execute the program used in java, python, nodejs i.e for `java`, `python` and `node` respectively. These paths defined by you if provided else defaults would be used.
 
 ## Compile-run 1.x.x
 
