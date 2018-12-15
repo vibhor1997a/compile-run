@@ -6,7 +6,7 @@
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm run tsc -- --sourcemap",
+    "build": "npm run tsc --",
     "tsc": "tsc"
   },
   "repository": {
@@ -34,8 +34,8 @@
   },
   "homepage": "https://github.com/l-ide/compile-run#readme",
   "devDependencies": {
-    "@types/node": "^10.5.8",
-    "typescript": "^3.0.1"
+    "@types/node": "^10.12.15",
+    "typescript": "^3.2.2"
   },
   "files": [
     "dist",

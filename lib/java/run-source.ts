@@ -35,7 +35,8 @@ export async function runJavaSourceAndReturnPromise(filePath: string, options?: 
         let classFilePath = await compileJavaSource(filePath, options);
         let classPath = path.dirname(classFilePath);
         let [className] = path.basename(classFilePath).split('.');
-        let res = await execute('java', ['-classpath', classPath, className], options);
+        const executionPath = options && options.executionPath || 'java';
+        let res = await execute(executionPath, ['-classpath', classPath, className], options);
         if (res.stderr) {
             res.errorType = 'run-time';
         }
