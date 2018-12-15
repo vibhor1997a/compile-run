@@ -13,13 +13,14 @@ import { execute } from "../execute-command";
 export async function compileC(filePath: string, options?: Options): Promise<string> {
     let compileTimeout = options && options.compileTimeout || 3000;
     let executableExt = getExecutableExt();
+    const compilationPath: string = options && options.compilationPath || 'gcc';
     let cPath = path.join(tmpPath, 'c');
     checkExistsAndMakeDir(cPath);
     let executableName = getFileName(executableExt);
     let executablePath = path.join(cPath, executableName);
-    let res = await execute('gcc', [filePath, '-o', executablePath], { timeout: compileTimeout });
+    let res = await execute(compilationPath, [filePath, '-o', executablePath], { timeout: compileTimeout });
     if (res.exitCode !== 0) {
-        res.errorType ='compile-time';
+        res.errorType = 'compile-time';
         throw res;
     }
     return executablePath;

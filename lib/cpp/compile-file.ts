@@ -13,11 +13,12 @@ import { execute } from "../execute-command";
 export async function compileCpp(filePath: string, options?: Options): Promise<string> {
     let compileTimeout = options && options.compileTimeout || 3000;
     let executableExt = getExecutableExt();
+    const compilationPath: string = options && options.compilationPath || 'gcc';
     let cppPath = path.join(tmpPath, 'cpp');
     checkExistsAndMakeDir(cppPath);
     let executableName = getFileName(executableExt);
     let executablePath = path.join(cppPath, executableName);
-    let res = await execute('gcc', [filePath, '-o', executablePath, '-lstdc++'], { timeout: compileTimeout });
+    let res = await execute(compilationPath, [filePath, '-o', executablePath, '-lstdc++'], { timeout: compileTimeout });
     if (res.exitCode !== 0) {
         res.errorType = 'compile-time';
         throw res;
