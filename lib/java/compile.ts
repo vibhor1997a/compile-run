@@ -9,7 +9,8 @@ import path from 'path';
  */
 export async function compileJava(filePath: string, options?: Options): Promise<string> {
     filePath = path.resolve(filePath);
-    let res = await execute('javac', [filePath], {
+    const compilationPath: string = options && options.compilationPath || 'javac';
+    let res = await execute(compilationPath, [filePath], {
         timeout: options && options.compileTimeout || 3000
     });
 
