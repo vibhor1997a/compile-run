@@ -1,7 +1,12 @@
 import { Options, Result } from "./types";
-import { spawn, ChildProcess } from "child_process";
-import { writeToStdin } from "./sdtin-write";
-import { streamDataToString } from "./stream-to-string";
+import { ChildProcess, spawn } from "child_process";
+import path from 'path';
+
+interface ResponseMessage {
+    status: 'success' | 'error';
+    executionResult: Result;
+    error: any;
+}
 
 /**
  * Execute a command taking spawn like arguments and returns a result promise
@@ -30,48 +35,35 @@ export function execute(cmd: string, ...args: any[]): Promise<Result> {
     let stdin = '';
     return new Promise((res, rej) => {
         let p: ChildProcess;
+        let arr: string[] | undefined = undefined;
         if (args[0] && args[0] instanceof Array) {
-            p = spawn(cmd, args[0]);
+            arr = args[0];
             if (args[1] && typeof args[1] === 'object') {
                 timeout = args[1] && args[1].timeout || timeout;
                 stdin = args[1] && args[1].stdin || stdin;
             }
         }
         else if (args[0] && typeof args[0] === 'object') {
-            p = spawn(cmd);
             timeout = args[0] && args[0].timeout || timeout;
             stdin = args[0] && args[0].stdin || stdin;
         }
-        else {
-            p = spawn(cmd);
-        }
-        //write to stdin
-        writeToStdin(p, stdin);
-        let killTimerId = setTimeout(() => {
+        p = spawn('node', [path.join(__dirname, 'box')], {
+            stdio: ['inherit', 'inherit', 'inherit', 'ipc']
+        });
+        p.send({
+            cmd,
+            timeout,
+            stdin,
+            arguments: arr
+        });
+        p.on('message', (msg: ResponseMessage) => {
+            if (msg.status == 'success') {
+                res(msg.executionResult);
+            }
+            else {
+                rej(msg.error);
+            }
             p.kill();
-        }, timeout);
-        let resultPromise: Promise<string>[] = [];
-        resultPromise.push((streamDataToString(p.stderr)));
-        resultPromise.push(streamDataToString(p.stdout));
-        let pr = Promise.all(resultPromise);
-        p.on('close', exitCode => {
-            pr
-                .then((result: string[]) => {
-                    clearTimeout(killTimerId);
-                    return result;
-                })
-                .then((result: string[]) => (
-                    {
-                        stderr: result[0],
-                        stdout: result[1],
-                        exitCode: exitCode
-                    }
-                ))
-                .then((result: Result) => res(result))
-                .catch(err => {
-                    clearTimeout(killTimerId);
-                    rej(err);
-                });
         });
     });
 }

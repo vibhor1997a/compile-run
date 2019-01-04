@@ -145,6 +145,10 @@ Result is an object with the following keys:-
     1. `'pre-compile-time'` - Only in case of `java`. Can be arised due to invalid public class name if using `runSource` for `java`.
     2. `'compile-time'` - If some error has occured at the compile time.
     3. `'run-time'` - If the error has occured at the run time.
+5. `cpuUsage` \<number> - CPU Time as calculated in microseconds.
+6. `memoryUsage` \<number> - Memory Consumed in Bytes.
+
+#### Disclaimer :- We don't gaurantee accuracy of `cpuUsage` and `memoryUsage`.
 
 ## Options
 
