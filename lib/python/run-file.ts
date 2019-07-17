@@ -1,8 +1,5 @@
 import { errorResultCallback, Result, Options } from "../types";
-import { spawn } from 'child_process';
 import path from 'path';
-import { streamDataToString } from "../stream-to-string";
-import { writeToStdin } from "../sdtin-write";
 import { multipleArgsCallbackifier } from "../helper";
 import { execute } from "../execute-command";
 
