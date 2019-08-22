@@ -164,5 +164,4 @@ API's offer an optional options object which has following keys:-
 
 The versions < 2.x.x have been deprecated due to inconsistencies so its recommended to use version > 2.0.0.
 
-You can find compile run version 1.x.x at https://github.com/vibhor1997a/compile-run.
-
+You can find compile run version 1.x.x at https://github.com/vibhor1997a/compile-run-1.
