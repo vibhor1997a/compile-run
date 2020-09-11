@@ -15,4 +15,9 @@ export interface Options {
      * like some people use python3 for python v3.6 and python for python v2.7
      */
     executionPath?: string;
+
+    /**
+     * Set or compiler args if necessary for the specific language
+     */
+    compilerArgs?: string;
 }
