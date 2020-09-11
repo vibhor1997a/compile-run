@@ -8,7 +8,7 @@ import { execute } from "../execute-command";
  */
 export async function runExecutable(filePath: string, options?: Options): Promise<Result> {
   let res = await execute(filePath, options);
-  if (res.exitCode != 0) {
+  if (res.stderr && res.exitCode != 0) {
     res.errorType = 'run-time';
   }
   return res;
