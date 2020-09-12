@@ -65,9 +65,5 @@ export function execute(cmd: string, ...args: any[]): Promise<Result> {
             }
             p.kill();
         });
-        p.on('error', (msg: ResponseMessage) => {
-            console.log("some error");
-            p.kill();
-        });
     });
 }
