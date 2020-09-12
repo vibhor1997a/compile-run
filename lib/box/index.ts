@@ -25,22 +25,24 @@ process.on('message', (msg: ReceivedMessage) => {
     resultPromise.push((streamDataToString(cp.stderr)));
     resultPromise.push(streamDataToString(cp.stdout));
     let pr = Promise.all(resultPromise);
-    cp.on('close', exitCode => {
+    cp.on('close', (exitCode,signal) => {
         let memUsage = process.memoryUsage();
         pr
             .then((result: string[]) => {
                 clearTimeout(killTimerId);
                 return result;
             })
-            .then((result: string[]) => (
-                {
+            .then((result: string[]) => {
+                let res = {
                     stderr: result[0],
                     stdout: result[1],
                     exitCode: exitCode,
+                    signal: signal,
                     memoryUsage: memUsage.rss - initialMemUsage.rss,
                     cpuUsage: process.cpuUsage(initialCPUUsage).user
                 }
-            ))
+                return res;
+            })
             .then((result: Result) => {
                 process.send && process.send({
                     status: 'success',
