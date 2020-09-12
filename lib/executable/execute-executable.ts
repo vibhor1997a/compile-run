@@ -8,8 +8,11 @@ import { execute } from "../execute-command";
  */
 export async function runExecutable(filePath: string, options?: Options): Promise<Result> {
   let res = await execute(filePath, options);
-  if (res.stderr && res.exitCode != 0) {
+  if (res.signal === 'SIGSEGV') { //probably seg fault and other memory/pagination issues
     res.errorType = 'run-time';
+  }
+  else if(res.signal === 'SIGTERM'){ //probably timeout or killed by SO somehow
+    res.errorType = 'run-timeout';
   }
   return res;
 }
