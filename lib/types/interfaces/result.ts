@@ -10,5 +10,10 @@ export interface Result {
      * CPU time by program in microseconds
      */
     cpuUsage: number;
-    errorType?: 'compile-time' | 'run-time' | 'pre-compile-time';
+
+    /** 
+     * Signal resulting, if any, resulting from the code execution
+    */
+    signal: string;
+    errorType?: 'compile-time' | 'run-time' | 'pre-compile-time' | 'run-timeout';
 }
