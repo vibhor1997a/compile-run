@@ -7,7 +7,9 @@ interface ReceivedMessage {
     cmd: string;
     timeout: number;
     stdin: string;
-    arguments?: string[]
+    stderrLimit: number;
+    stdoutLimit: number;
+    arguments?: string[];
 }
 
 // When it receives a message about what command to execute it executes it and returns the result
@@ -25,6 +27,17 @@ process.on('message', (msg: ReceivedMessage) => {
     resultPromise.push((streamDataToString(cp.stderr)));
     resultPromise.push(streamDataToString(cp.stdout));
     let pr = Promise.all(resultPromise);
+    let stdoutSize = 0, stdoutErrSize = 0;
+    cp.stdout.on('data', (data : string) => {
+        stdoutSize += data.length;
+        if(stdoutSize > msg.stdoutLimit)
+            cp.kill();
+    });
+    cp.stderr.on('data', (data : string) => {
+        stdoutErrSize += data.length;
+        if(stdoutErrSize > msg.stderrLimit)
+            cp.kill();
+    });
     cp.on('close', (exitCode,signal) => {
         let memUsage = process.memoryUsage();
         pr
@@ -34,8 +47,8 @@ process.on('message', (msg: ReceivedMessage) => {
             })
             .then((result: string[]) => {
                 let res = {
-                    stderr: result[0],
-                    stdout: result[1],
+                    stderr: result[0].slice(0,msg.stderrLimit),
+                    stdout: result[1].slice(0,msg.stdoutLimit),
                     exitCode: exitCode,
                     signal: signal,
                     memoryUsage: memUsage.rss - initialMemUsage.rss,
