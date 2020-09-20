@@ -147,6 +147,7 @@ Result is an object with the following keys:-
     3. `'run-time'` - If the error has occured at the run time.
 5. `cpuUsage` \<number> - CPU Time as calculated in microseconds.
 6. `memoryUsage` \<number> - Memory Consumed in Bytes.
+6. `signal` \<string|null> - Signal resulting, if any, resulting from the code execution.
 
 #### Disclaimer :- We don't gaurantee accuracy of `cpuUsage` and `memoryUsage`.
 
