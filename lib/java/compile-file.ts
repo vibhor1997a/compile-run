@@ -1,5 +1,4 @@
 import { Options } from "../types";
-import { execute } from "../execute-command";
 import path from 'path';
 import { writeSource, readSource } from '../source-writer/read-write-util';
 import { setupJavaDir } from "./setup";

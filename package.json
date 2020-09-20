@@ -1,17 +1,18 @@
 {
   "name": "compile-run",
-  "version": "2.3.0",
-  "description": "You can execute programs in diff languages using this package",
+  "version": "2.3.2",
+  "description": "You can execute programs in different languages using this package",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "prepare": "npm run build",
     "test": "echo \"Error: no test specified\" && exit 1",
     "build": "npm run tsc --",
     "tsc": "tsc"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/l-ide/compile-run.git"
+    "url": "git+https://github.com/vibhor1997a/compile-run.git"
   },
   "keywords": [
     "compile",
@@ -30,12 +31,12 @@
   "author": "vibhor agrawal <vibhor349a@rediffmail.com>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/l-ide/compile-run/issues"
+    "url": "https://github.com/vibhor1997a/compile-run/issues"
   },
-  "homepage": "https://github.com/l-ide/compile-run#readme",
+  "homepage": "https://github.com/vibhor1997a/compile-run#readme",
   "devDependencies": {
     "@types/node": "^10.12.15",
-    "typescript": "^3.2.2"
+    "typescript": "^3.5.3"
   },
   "files": [
     "dist",

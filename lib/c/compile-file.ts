@@ -14,11 +14,12 @@ export async function compileC(filePath: string, options?: Options): Promise<str
     let compileTimeout = options && options.compileTimeout || 3000;
     let executableExt = getExecutableExt();
     const compilationPath: string = options && options.compilationPath || 'gcc';
+    const compilerArgs: string = options && options.compilerArgs || '-lm';
     let cPath = path.join(tmpPath, 'c');
     checkExistsAndMakeDir(cPath);
     let executableName = getFileName(executableExt);
     let executablePath = path.join(cPath, executableName);
-    let res = await execute(compilationPath, [filePath, '-o', executablePath], { timeout: compileTimeout });
+    let res = await execute(compilationPath, [filePath, '-o', executablePath, compilerArgs], { timeout: compileTimeout });
     if (res.exitCode !== 0) {
         res.errorType = 'compile-time';
         throw res;
