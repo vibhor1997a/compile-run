@@ -16,4 +16,5 @@ export interface Result {
     */
     signal: string;
     errorType?: 'compile-time' | 'run-time' | 'pre-compile-time' | 'run-timeout';
+    file?: string;
 }

@@ -1,5 +1,12 @@
-compile-run
+@eurytus/compile-run
 ===================
+
+## Notice
+
+This package has been modified to return the path of the saved
+file after execution. Everything else is similar to the original package.
+
+---  
 
 - This library works as a wrapper over the compilers installed in your system.
 - It provides APIs to execute programs by spawning child processes.

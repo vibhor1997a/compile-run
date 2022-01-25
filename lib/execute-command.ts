@@ -67,7 +67,10 @@ export function execute(cmd: string, ...args: any[]): Promise<Result> {
         });
         p.on('message', (msg: ResponseMessage) => {
             if (msg.status == 'success') {
-                res(msg.executionResult);
+                res({
+                    ...msg.executionResult,
+                    file: arr? arr[1]||arr[0].replace('\\SimpleClass.java',''): ''
+                });
             }
             else {
                 rej(msg.error);
